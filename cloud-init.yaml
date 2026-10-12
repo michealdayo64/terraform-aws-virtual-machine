@@ -1,0 +1,19 @@
+#cloud-config
+package_update: true
+package_upgrade: true
+ 
+packages:
+- apt-transport-https
+- ca-certificates
+- curl
+- gnupg
+- lsb-release
+- git
+ 
+runcmd:
+- apt-get update -y
+- apt-get install -y docker.io
+- systemctl enable docker
+- systemctl start docker
+- usermod -aG docker ubuntu || true
+- echo "Docker installation completed through Cloud-Init"

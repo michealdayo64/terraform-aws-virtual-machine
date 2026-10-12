@@ -107,7 +107,7 @@ resource "aws_security_group" "web_sg" {
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
-    cidr_blocks = ["102.89.22.201/32"]
+    cidr_blocks = ["102.88.111.26/32"]
   }
 
   ingress {
@@ -167,8 +167,11 @@ resource "aws_instance" "web" {
   key_name                    = aws_key_pair.deployer.key_name
   associate_public_ip_address = true
 
+  user_data = file("${path.module}/cloud-init.yaml")
+  user_data_replace_on_change = true
+
   tags = {
-    Name = "Terraform-AWS-VM"
+    Name = "VM-docker"
   }
 }
 
